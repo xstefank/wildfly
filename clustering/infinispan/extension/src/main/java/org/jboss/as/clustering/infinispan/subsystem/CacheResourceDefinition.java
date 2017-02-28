@@ -41,9 +41,11 @@ import org.jboss.as.clustering.controller.SimpleResourceRegistration;
 import org.jboss.as.clustering.controller.validation.EnumValidatorBuilder;
 import org.jboss.as.clustering.controller.validation.ModuleIdentifierValidatorBuilder;
 import org.jboss.as.clustering.controller.validation.ParameterValidatorBuilder;
+import org.jboss.as.clustering.logging.ClusteringLogger;
 import org.jboss.as.controller.AbstractAttributeDefinitionBuilder;
 import org.jboss.as.controller.AttributeDefinition;
 import org.jboss.as.controller.ModelVersion;
+import org.jboss.as.controller.OperationContext;
 import org.jboss.as.controller.OperationFailedException;
 import org.jboss.as.controller.PathAddress;
 import org.jboss.as.controller.PathElement;
@@ -258,5 +260,25 @@ public class CacheResourceDefinition extends ChildResourceDefinition {
         new SimpleResourceRegistration(descriptor, this.handler).register(registration);
 
         this.registrationConfigurator.accept(registration);
+
+        registration.unregisterAttribute(Attribute.STATISTICS_ENABLED.getName());
+        registration.registerReadWriteAttribute(Attribute.STATISTICS_ENABLED.getDefinition(), null,
+                new StatisticsEnabledHandler());
+    }
+
+    private static class StatisticsEnabledHandler extends org.jboss.as.controller.ReloadRequiredWriteAttributeHandler {
+
+        @Override
+        protected boolean applyUpdateToRuntime(OperationContext context, ModelNode operation, String attributeName, ModelNode resolvedValue, ModelNode currentValue, HandbackHolder<Void> voidHandback) throws OperationFailedException {
+            if (context.isResourceServiceRestartAllowed()) {
+                PathAddress address = context.getCurrentAddress();
+                ClusteringLogger.ROOT_LOGGER.info(address.toString());
+
+
+                return false;
+            }
+
+            return super.applyUpdateToRuntime(context, operation, attributeName, resolvedValue, currentValue, voidHandback);
+        }
     }
 }
