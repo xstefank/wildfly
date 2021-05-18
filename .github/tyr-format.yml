@@ -1,0 +1,23 @@
+repository: "xstefank/wildfly"
+statusUrl: "https://raw.githubusercontent.com/xstefank/wildfly/master-with-tyr/.github/tyr-format.yml"
+
+format:
+  skipPatterns:
+    title: "((.*)?NO JIRA REQUIRED(.*)\\s?)|(([^do not|don't]\\s)?skip.*template.*check(.*)\\s?)|(([^do not|don't]\\s)?bypass.*template.*check(.*)\\s?)"
+    commit: "((.*)?NO JIRA REQUIRED(.*)\\s?)|(([^do not|don't]\\s)?skip.*template.*check(.*)\\s?)|(([^do not|don't]\\s)?bypass.*template.*check(.*)\\s?)"
+    description: "((.*)?NO JIRA REQUIRED(.*)\\s?)|(([^do not|don't]\\s)?skip.*template.*check(.*)\\s?)|(([^do not|don't]\\s)?bypass.*template.*check(.*)\\s?)"
+  title:
+    pattern: "\\[WFLY-\\d+\\]\\s+.*|WFLY-\\d+\\s+.*"
+    message: "Wrong content of the title!"
+  commit:
+    pattern: "\\[WFLY-\\d+\\]\\s+.*"
+    message: "One of the commit messages has wrong format!"
+  description:
+    required rows:
+      - pattern: "JIRA:\\s+https://issues.redhat.com/browse/WFLY-\\d+|https://issues.redhat.com/browse/WFLY-\\d+"
+        message: "The PR description must contain a link to the JIRA issue"
+
+  commands:
+    AddUserCommand: "ok\\s+to\\s+test$"
+    RetestCommand: "retest\\s+this\\s+please$"
+    RetestFailedCommand: "retest\\s+failed\\s+please$"
