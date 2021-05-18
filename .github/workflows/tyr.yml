@@ -1,0 +1,19 @@
+name: Tyr
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, edited]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  verify:
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Tyr PR format verification
+        uses: xstefank/tyr-action@main
+        with:
+          formatUrl: https://raw.githubusercontent.com/xstefank/wildfly/master-with-tyr/.github/tyr-format.yml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          pushStatus: true
