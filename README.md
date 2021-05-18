@@ -8,6 +8,8 @@ WildFly Application Server
 ========================
 https://wildfly.org
 
+I fixed an issue.
+
 * Fast Startup
 * Small Footprint
 * Modular Design
