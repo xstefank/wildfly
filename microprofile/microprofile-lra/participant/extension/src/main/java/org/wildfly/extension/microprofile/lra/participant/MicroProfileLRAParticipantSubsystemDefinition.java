@@ -44,11 +44,15 @@ import org.jboss.as.controller.SimpleResourceDefinition;
 import org.jboss.as.controller.capability.RuntimeCapability;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
 import org.jboss.as.controller.registry.AttributeAccess;
+import org.jboss.as.jaxrs.JaxrsExtension;
+import org.jboss.as.jaxrs.deployment.JaxrsScanningProcessor;
 import org.jboss.as.server.AbstractDeploymentChainStep;
 import org.jboss.as.server.DeploymentProcessorTarget;
+import org.jboss.as.server.deployment.Phase;
 import org.jboss.dmr.ModelNode;
 import org.jboss.dmr.ModelType;
 import org.wildfly.extension.microprofile.lra.participant._private.MicroProfileLRAParticipantLogger;
+import org.wildfly.extension.microprofile.lra.participant.deployment.LRAJaxrsScanningProcessor;
 import org.wildfly.extension.microprofile.lra.participant.deployment.LRAParticipantDeploymentDependencyProcessor;
 import org.wildfly.extension.microprofile.lra.participant.deployment.LRAParticipantDeploymentSetupProcessor;
 
@@ -121,6 +125,7 @@ public class MicroProfileLRAParticipantSubsystemDefinition  extends PersistentRe
 
                     processorTarget.addDeploymentProcessor(SUBSYSTEM_NAME, STRUCTURE, STRUCTURE_MICROPROFILE_LRA_PARTICIPANT, new LRAParticipantDeploymentSetupProcessor());
                     processorTarget.addDeploymentProcessor(SUBSYSTEM_NAME, DEPENDENCIES, DEPENDENCIES_MICROPROFILE_LRA_PARTICIPANT, new LRAParticipantDeploymentDependencyProcessor());
+                    processorTarget.addDeploymentProcessor(SUBSYSTEM_NAME, Phase.POST_MODULE, Phase.POST_MODULE_JAXRS_SCANNING, new LRAJaxrsScanningProcessor());
                 }
             }, RUNTIME);
 
