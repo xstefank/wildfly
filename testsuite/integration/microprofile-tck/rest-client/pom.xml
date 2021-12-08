@@ -572,19 +572,26 @@
                             </execution>
                         </executions>
                     </plugin>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <executions>
-                            <!--Disable the default surefire execution until WFLY-14136 is sorted. -->
-                            <execution>
-                                <id>default-test</id>
-                                <phase>none</phase>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
+            <dependencies>
+                <dependency>
+                    <groupId>jakarta.enterprise</groupId>
+                    <artifactId>jakarta.enterprise.cdi-api</artifactId>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.resteasy</groupId>
+                    <artifactId>resteasy-client-microprofile-base</artifactId>
+                    <scope>system</scope>
+                    <systemPath>${project.basedir}/../../../../ee-9/dist/target/wildfly-preview-26.0.0.Final-SNAPSHOT/modules/system/layers/base/org/jboss/resteasy/resteasy-client-microprofile/main/microprofile-rest-client-base-1.0.0.Final-ee9.jar</systemPath>
+                </dependency>
+                <dependency>
+                    <groupId>org.jboss.resteasy</groupId>
+                    <artifactId>resteasy-client-microprofile</artifactId>
+                    <scope>system</scope>
+                    <systemPath>${project.basedir}/../../../../ee-9/dist/target/wildfly-preview-26.0.0.Final-SNAPSHOT/modules/system/layers/base/org/jboss/resteasy/resteasy-client-microprofile/main/microprofile-rest-client-1.0.0.Final.jar</systemPath>
+                </dependency>
+            </dependencies>
         </profile>
 
         <!-- Skip TCK testing on Windows due to issues with beans.xml deployment overlay -->
