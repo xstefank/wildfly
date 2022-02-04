@@ -41,6 +41,7 @@ import org.jboss.as.controller.registry.ManagementResourceRegistration;
  */
 public class MicroProfileHealthExtension implements Extension {
 
+    static final String TEST="test";
     static final String EXTENSION_NAME = "org.wildfly.extension.microprofile.health.smallrye";
 
     /**
