@@ -201,6 +201,7 @@
                         <lra.http.recovery.port>${lra.http.recovery.port}</lra.http.recovery.port>
                         <lra.http.recovery.path>${lra.http.recovery.path}</lra.http.recovery.path>
                     </systemPropertyVariables>
+                    <redirectTestOutputToFile>false</redirectTestOutputToFile>
                 </configuration>
             </plugin>
         </plugins>
