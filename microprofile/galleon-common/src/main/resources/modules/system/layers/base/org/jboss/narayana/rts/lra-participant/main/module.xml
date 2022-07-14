@@ -33,13 +33,13 @@
         <artifact name="${org.jboss.narayana.rts:lra-proxy-api}" />
         <artifact name="${org.jboss.narayana.rts:narayana-lra}" />
     </resources>
-    <provides>
-        <service name="javax.ws.rs.ext.Providers">
-            <with-class name="io.narayana.lra.filter.ClientLRAResponseFilter"/>
-            <with-class name="io.narayana.lra.filter.ClientLRARequestFilter"/>
-            <with-class name="io.narayana.lra.filter.ServerLRAFilter"/>
-        </service>
-    </provides>
+<!--    <provides>-->
+<!--        <service name="javax.ws.rs.ext.Providers">-->
+<!--            <with-class name="io.narayana.lra.filter.ClientLRAResponseFilter"/>-->
+<!--            <with-class name="io.narayana.lra.filter.ClientLRARequestFilter"/>-->
+<!--            <with-class name="io.narayana.lra.filter.ServerLRAFilter"/>-->
+<!--        </service>-->
+<!--    </provides>-->
 
     <dependencies>
         <module name="org.eclipse.microprofile.lra.api" />
@@ -53,5 +53,9 @@
         <module name="javax.enterprise.api"/>
         <!-- lra-proxy-api -->
         <module name="org.jboss.jandex" />
+        <module name="org.jboss.resteasy.resteasy-cdi" />
+        <module name="org.jboss.weld.core"/>
+        <module name="org.jboss.weld.spi"/>
+        <module name="org.jboss.weld.api"/>
     </dependencies>
 </module>

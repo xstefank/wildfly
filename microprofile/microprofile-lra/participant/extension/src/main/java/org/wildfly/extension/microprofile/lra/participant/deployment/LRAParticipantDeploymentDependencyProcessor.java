@@ -22,6 +22,8 @@
 
 package org.wildfly.extension.microprofile.lra.participant.deployment;
 
+import io.narayana.lra.client.internal.proxy.nonjaxrs.LRAParticipant;
+import io.narayana.lra.client.internal.proxy.nonjaxrs.LRAParticipantResource;
 import org.eclipse.microprofile.lra.annotation.Complete;
 import org.eclipse.microprofile.lra.annotation.Compensate;
 import org.eclipse.microprofile.lra.annotation.Status;
@@ -29,6 +31,9 @@ import org.eclipse.microprofile.lra.annotation.Forget;
 import org.eclipse.microprofile.lra.annotation.AfterLRA;
 import org.eclipse.microprofile.lra.annotation.ws.rs.LRA;
 import org.eclipse.microprofile.lra.annotation.ws.rs.Leave;
+import org.jboss.as.jaxrs.deployment.JaxrsAttachments;
+import org.jboss.as.jaxrs.deployment.ResteasyDeploymentData;
+import org.jboss.as.server.deployment.AttachmentList;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.Attachments;
@@ -38,8 +43,15 @@ import org.jboss.as.server.deployment.module.ModuleDependency;
 import org.jboss.as.server.deployment.module.ModuleSpecification;
 import org.jboss.as.server.deployment.annotation.CompositeIndex;
 import org.jboss.jandex.DotName;
+import org.jboss.jandex.Indexer;
 import org.jboss.modules.Module;
+import org.jboss.modules.ModuleIdentifier;
 import org.jboss.modules.ModuleLoader;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LRAParticipantDeploymentDependencyProcessor implements DeploymentUnitProcessor {
 
@@ -86,5 +98,14 @@ public class LRAParticipantDeploymentDependencyProcessor implements DeploymentUn
         moduleSpecification.addLocalDependency(new ModuleDependency(moduleLoader, "org.eclipse.microprofile.lra.api", false, false, false, false));
         moduleSpecification.addLocalDependency(new ModuleDependency(moduleLoader, "org.jboss.narayana.rts.lra-participant", false, false, true, false));
         moduleSpecification.addLocalDependency(new ModuleDependency(moduleLoader, "org.jboss.jandex", false, false, true, false));
+        ModuleDependency moduleDependency = cdiDependency(new ModuleDependency(moduleLoader, "org.wildfly.microprofile.lra.cdi-provider", false, false, true, false));
+        moduleSpecification.addSystemDependency(moduleDependency);
     }
+
+    private ModuleDependency cdiDependency(ModuleDependency moduleDependency) {
+        // This is needed following https://issues.redhat.com/browse/WFLY-13641 / https://github.com/wildfly/wildfly/pull/13406
+        moduleDependency.addImportFilter(s -> s.equals("META-INF"), true);
+        return moduleDependency;
+    }
+
 }
