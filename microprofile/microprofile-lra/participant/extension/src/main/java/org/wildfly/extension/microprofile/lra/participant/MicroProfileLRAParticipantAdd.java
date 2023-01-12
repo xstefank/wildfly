@@ -26,8 +26,11 @@ import org.jboss.as.controller.AbstractBoottimeAddStepHandler;
 import org.jboss.as.controller.CapabilityServiceBuilder;
 import org.jboss.as.controller.OperationContext;
 import org.jboss.as.controller.OperationFailedException;
+import org.jboss.as.jaxrs.JaxrsExtension;
+import org.jboss.as.jaxrs.deployment.JaxrsScanningProcessor;
 import org.jboss.as.server.AbstractDeploymentChainStep;
 import org.jboss.as.server.DeploymentProcessorTarget;
+import org.jboss.as.server.deployment.Phase;
 import org.jboss.dmr.ModelNode;
 import org.jboss.msc.service.ServiceController;
 import org.jboss.msc.service.ServiceName;
@@ -37,6 +40,7 @@ import org.wildfly.clustering.service.SupplierDependency;
 import org.wildfly.extension.microprofile.lra.participant._private.MicroProfileLRAParticipantLogger;
 import org.wildfly.extension.microprofile.lra.participant.deployment.LRAParticipantDeploymentDependencyProcessor;
 import org.wildfly.extension.microprofile.lra.participant.deployment.LRAParticipantDeploymentSetupProcessor;
+import org.wildfly.extension.microprofile.lra.participant.deployment.LRAParticipantResourceDeploymentUnitProcessor;
 import org.wildfly.extension.microprofile.lra.participant.service.LRAParticipantService;
 import org.wildfly.extension.undertow.Capabilities;
 import org.wildfly.extension.undertow.Constants;
@@ -116,6 +120,7 @@ public class MicroProfileLRAParticipantAdd extends AbstractBoottimeAddStepHandle
 
                 processorTarget.addDeploymentProcessor(SUBSYSTEM_NAME, STRUCTURE, STRUCTURE_MICROPROFILE_LRA_PARTICIPANT, new LRAParticipantDeploymentSetupProcessor());
                 processorTarget.addDeploymentProcessor(SUBSYSTEM_NAME, DEPENDENCIES, DEPENDENCIES_MICROPROFILE_LRA_PARTICIPANT, new LRAParticipantDeploymentDependencyProcessor());
+                processorTarget.addDeploymentProcessor(SUBSYSTEM_NAME, Phase.POST_MODULE, Phase.POST_MODULE_JAXRS_SCANNING, new LRAParticipantResourceDeploymentUnitProcessor());
             }
         }, RUNTIME);
 

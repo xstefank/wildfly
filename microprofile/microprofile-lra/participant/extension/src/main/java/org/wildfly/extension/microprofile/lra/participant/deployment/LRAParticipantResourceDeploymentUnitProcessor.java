@@ -23,53 +23,27 @@
 package org.wildfly.extension.microprofile.lra.participant.deployment;
 
 import io.narayana.lra.client.internal.proxy.nonjaxrs.LRAParticipantResource;
-import org.jboss.as.ee.structure.DeploymentType;
-import org.jboss.as.ee.structure.DeploymentTypeMarker;
 import org.jboss.as.jaxrs.deployment.JaxrsAttachments;
 import org.jboss.as.jaxrs.deployment.ResteasyDeploymentData;
-import org.jboss.as.server.deployment.Attachments;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
 import org.jboss.as.server.deployment.DeploymentUnit;
 import org.jboss.as.server.deployment.DeploymentUnitProcessingException;
 import org.jboss.as.server.deployment.DeploymentUnitProcessor;
-import org.jboss.vfs.VirtualFile;
-import org.wildfly.extension.microprofile.lra.participant._private.MicroProfileLRAParticipantLogger;
 
-import java.io.IOException;
-
-public class LRAParticipantDeploymentSetupProcessor implements DeploymentUnitProcessor {
-    // CDI markers do declare deployment being a CDI project
-    private static final String WEB_INF_BEANS_XML = "WEB-INF/beans.xml";
-    private static final String META_INF_BEANS_XML = "META-INF/beans.xml";
-
+public class LRAParticipantResourceDeploymentUnitProcessor implements DeploymentUnitProcessor {
     @Override
     public void deploy(DeploymentPhaseContext phaseContext) throws DeploymentUnitProcessingException {
         DeploymentUnit deploymentUnit = phaseContext.getDeploymentUnit();
-        addBeanXml(deploymentUnit);
+
+        final ResteasyDeploymentData resteasyDeploymentData = deploymentUnit.getAttachment(JaxrsAttachments.RESTEASY_DEPLOYMENT_DATA);
+
+        if (resteasyDeploymentData != null) {
+            resteasyDeploymentData.getScannedResourceClasses().add(LRAParticipantResource.class.getName());
+        }
     }
 
     @Override
     public void undeploy(DeploymentUnit context) {
-    }
-
-    private void addBeanXml(DeploymentUnit deploymentUnit) throws DeploymentUnitProcessingException {
-        VirtualFile beanXmlVFile;
-        if (DeploymentTypeMarker.isType(DeploymentType.WAR, deploymentUnit)) {
-            beanXmlVFile = deploymentUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot().getChild(WEB_INF_BEANS_XML);
-        } else {
-            beanXmlVFile = deploymentUnit.getAttachment(Attachments.DEPLOYMENT_ROOT).getRoot().getChild(META_INF_BEANS_XML);
-        }
-
-        if (!beanXmlVFile.exists()) {
-            try {
-                boolean isCreated = beanXmlVFile.getPhysicalFile().createNewFile();
-                MicroProfileLRAParticipantLogger.LOGGER.debugf("The CDI marker file '%s' was %s created",
-                    beanXmlVFile.getPhysicalFile(), (isCreated ? "" : "NOT"));
-            } catch (IOException ioe) {
-                throw new DeploymentUnitProcessingException("Cannot create CDI marker file " + beanXmlVFile, ioe);
-                // we tried
-            }
-        }
     }
 
 }

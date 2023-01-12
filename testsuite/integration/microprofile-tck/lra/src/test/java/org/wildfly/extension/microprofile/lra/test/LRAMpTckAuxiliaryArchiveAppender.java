@@ -37,6 +37,7 @@ public class LRAMpTckAuxiliaryArchiveAppender implements AuxiliaryArchiveAppende
         return ShrinkWrap.create(JavaArchive.class)
             // adding TCK required SPI implementations
             .addPackage(NarayanaLRARecovery.class.getPackage())
+//            .addPackage(LRAParticipantResource.class.getPackage()) TckParticipantTests work with this
             .addAsResource(new StringAsset(NarayanaLRARecovery.class.getName()),
                 "META-INF/services/org.eclipse.microprofile.lra.tck.service.spi.LRARecoveryService");
     }
