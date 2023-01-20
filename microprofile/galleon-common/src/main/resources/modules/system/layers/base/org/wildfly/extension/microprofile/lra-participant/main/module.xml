@@ -90,5 +90,9 @@
     <module name="org.wildfly.extension.undertow"/>
     <module name="java.xml"/>
 
+    <module name="org.jboss.resteasy.resteasy-cdi" services="import"/>
+    <module name="org.jboss.resteasy.resteasy-core-spi" services="import"/>
+
+
   </dependencies>
 </module>

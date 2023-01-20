@@ -33,13 +33,13 @@
     <artifact name="${org.jboss.narayana.rts:lra-proxy-api}" />
     <artifact name="${org.jboss.narayana.rts:narayana-lra}" />
   </resources>
-  <provides>
-    <service name="jakarta.ws.rs.ext.Providers">
-      <with-class name="io.narayana.lra.filter.ClientLRAResponseFilter"/>
-      <with-class name="io.narayana.lra.filter.ClientLRARequestFilter"/>
-      <with-class name="io.narayana.lra.filter.ServerLRAFilter"/>
-    </service>
-  </provides>
+<!--  <provides>-->
+<!--    <service name="jakarta.ws.rs.ext.Providers">-->
+<!--      <with-class name="io.narayana.lra.filter.ClientLRAResponseFilter"/>-->
+<!--      <with-class name="io.narayana.lra.filter.ClientLRARequestFilter"/>-->
+<!--      <with-class name="io.narayana.lra.filter.ServerLRAFilter"/>-->
+<!--    </service>-->
+<!--  </provides>-->
 
   <dependencies>
     <module name="org.eclipse.microprofile.lra.api" />

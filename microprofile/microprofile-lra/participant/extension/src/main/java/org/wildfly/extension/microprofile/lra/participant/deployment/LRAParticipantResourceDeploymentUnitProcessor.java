@@ -23,6 +23,9 @@
 package org.wildfly.extension.microprofile.lra.participant.deployment;
 
 import io.narayana.lra.client.internal.proxy.nonjaxrs.LRAParticipantResource;
+import io.narayana.lra.filter.ClientLRARequestFilter;
+import io.narayana.lra.filter.ClientLRAResponseFilter;
+import io.narayana.lra.filter.ServerLRAFilter;
 import org.jboss.as.jaxrs.deployment.JaxrsAttachments;
 import org.jboss.as.jaxrs.deployment.ResteasyDeploymentData;
 import org.jboss.as.server.deployment.DeploymentPhaseContext;
@@ -39,6 +42,9 @@ public class LRAParticipantResourceDeploymentUnitProcessor implements Deployment
 
         if (resteasyDeploymentData != null) {
             resteasyDeploymentData.getScannedResourceClasses().add(LRAParticipantResource.class.getName());
+            resteasyDeploymentData.getScannedProviderClasses().add(ServerLRAFilter.class.getName());
+            resteasyDeploymentData.getScannedProviderClasses().add(ClientLRARequestFilter.class.getName());
+            resteasyDeploymentData.getScannedProviderClasses().add(ClientLRAResponseFilter.class.getName());
         }
     }
 

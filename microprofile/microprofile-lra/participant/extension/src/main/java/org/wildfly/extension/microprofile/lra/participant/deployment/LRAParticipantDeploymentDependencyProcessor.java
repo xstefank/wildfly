@@ -43,6 +43,7 @@ import org.jboss.as.weld.WeldCapability;
 import org.jboss.jandex.DotName;
 import org.jboss.modules.Module;
 import org.jboss.modules.ModuleLoader;
+import org.jboss.modules.filter.PathFilters;
 
 import static org.jboss.as.weld.Capabilities.WELD_CAPABILITY_NAME;
 
@@ -89,7 +90,10 @@ public class LRAParticipantDeploymentDependencyProcessor implements DeploymentUn
         final ModuleLoader moduleLoader = Module.getBootModuleLoader();
 
         moduleSpecification.addSystemDependency(new ModuleDependency(moduleLoader, "org.eclipse.microprofile.lra.api", false, false, false, false));
-        moduleSpecification.addSystemDependency(new ModuleDependency(moduleLoader, "org.jboss.narayana.rts.lra-participant", false, false, true, false));
+        ModuleDependency dependency = new ModuleDependency(moduleLoader, "org.jboss.narayana.rts.lra-participant", false, false, true, false);
+        dependency.addImportFilter(PathFilters.getMetaInfFilter(), true);
+        moduleSpecification.addSystemDependency(dependency);
+
         moduleSpecification.addSystemDependency(new ModuleDependency(moduleLoader, "org.jboss.jandex", false, false, true, false));
 
         moduleSpecification.addSystemDependency(new ModuleDependency(moduleLoader, "org.jboss.as.weld.common", false, false, true, false));
