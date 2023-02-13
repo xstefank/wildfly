@@ -66,7 +66,7 @@ public class LRAParticipantDeploymentSetupProcessor implements DeploymentUnitPro
                 MicroProfileLRAParticipantLogger.LOGGER.debugf("The CDI marker file '%s' was %s created",
                     beanXmlVFile.getPhysicalFile(), (isCreated ? "" : "NOT"));
             } catch (IOException ioe) {
-                throw new DeploymentUnitProcessingException("Cannot create CDI marker file " + beanXmlVFile, ioe);
+//                throw new DeploymentUnitProcessingException("Cannot create CDI marker file " + beanXmlVFile, ioe);
                 // we tried
             }
         }

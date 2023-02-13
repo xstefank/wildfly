@@ -90,8 +90,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.testng</groupId>
-            <artifactId>testng</artifactId>
+            <groupId>org.jboss.narayana.rts</groupId>
+            <artifactId>lra-service-base</artifactId>
+            <version>${version.org.jboss.narayana}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
 <!--        <dependency>-->
