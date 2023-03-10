@@ -20,4 +20,5 @@
   ~ 02110-1301 USA, or see the FSF site: http://www.fsf.org.
   -->
 
-<subsystem xmlns="urn:wildfly:microprofile-lra-participant:1.0"/>
+<subsystem xmlns="urn:wildfly:microprofile-lra-participant:1.0"
+    url="${lra.coordinator.url:http://some-different-url:8080/lra-coordinator/lra-coordinator}"/>
