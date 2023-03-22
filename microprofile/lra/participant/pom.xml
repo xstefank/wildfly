@@ -44,10 +44,6 @@
       <artifactId>wildfly-weld-common</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.jboss.resteasy</groupId>
-      <artifactId>resteasy-cdi</artifactId>
-    </dependency>
-    <dependency>
       <groupId>jakarta.enterprise</groupId>
       <artifactId>jakarta.enterprise.cdi-api</artifactId>
     </dependency>
@@ -68,10 +64,6 @@
     <dependency>
       <groupId>org.jboss.narayana.rts</groupId>
       <artifactId>lra-proxy-api</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>jakarta.enterprise</groupId>
-      <artifactId>jakarta.enterprise.cdi-api</artifactId>
     </dependency>
     <dependency>
       <groupId>jakarta.ws.rs</groupId>
@@ -128,16 +120,6 @@
     <dependency>
       <groupId>org.wildfly.core</groupId>
       <artifactId>wildfly-server</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>${ee.maven.groupId}</groupId>
-      <artifactId>wildfly-weld-common</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>*</groupId>
-          <artifactId>*</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
 
     <dependency>
