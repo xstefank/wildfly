@@ -24,16 +24,24 @@ package org.wildfly.extension.microprofile.lra.participant;
 
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUBSYSTEM;
 
+import java.util.EnumSet;
+import java.util.List;
+
 import org.jboss.as.controller.Extension;
 import org.jboss.as.controller.ExtensionContext;
 import org.jboss.as.controller.ModelVersion;
 import org.jboss.as.controller.PathElement;
+import org.jboss.as.controller.PersistentResourceXMLDescription;
+import org.jboss.as.controller.PersistentResourceXMLDescriptionReader;
+import org.jboss.as.controller.PersistentResourceXMLDescriptionWriter;
 import org.jboss.as.controller.SubsystemRegistration;
 import org.jboss.as.controller.descriptions.ResourceDescriptionResolver;
 import org.jboss.as.controller.descriptions.StandardResourceDescriptionResolver;
 import org.jboss.as.controller.operations.common.GenericSubsystemDescribeHandler;
 import org.jboss.as.controller.parsing.ExtensionParsingContext;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
+import org.jboss.dmr.ModelNode;
+import org.jboss.staxmapper.XMLElementReader;
 
 
 public class MicroProfileLRAParticipantExtension implements Extension {
@@ -46,10 +54,10 @@ public class MicroProfileLRAParticipantExtension implements Extension {
     protected static final PathElement SUBSYSTEM_PATH = PathElement.pathElement(SUBSYSTEM, SUBSYSTEM_NAME);
     private static final String RESOURCE_NAME = MicroProfileLRAParticipantExtension.class.getPackage().getName() + ".LocalDescriptions";
 
-    protected static final ModelVersion VERSION_1_0_0 = ModelVersion.create(1, 0, 0);
-    private static final ModelVersion CURRENT_MODEL_VERSION = VERSION_1_0_0;
+    static final ModelVersion VERSION_1_0_0 = ModelVersion.create(1, 0, 0);
 
-    private static final MicroProfileLRAParticipantParser_1_0 CURRENT_PARSER = new MicroProfileLRAParticipantParser_1_0();
+    private static final ModelVersion CURRENT_MODEL_VERSION = VERSION_1_0_0;
+    private static final MicroProfileLRAParticipantSubsystemSchema CURRENT_SCHEMA = MicroProfileLRAParticipantSubsystemSchema.VERSION_1_0;
 
     static ResourceDescriptionResolver getResourceDescriptionResolver(final String... keyPrefix) {
         return getResourceDescriptionResolver(true, keyPrefix);
@@ -67,17 +75,21 @@ public class MicroProfileLRAParticipantExtension implements Extension {
         return new StandardResourceDescriptionResolver(prefix.toString(), RESOURCE_NAME, MicroProfileLRAParticipantExtension.class.getClassLoader(), true, useUnprefixedChildTypes);
     }
 
+    private final PersistentResourceXMLDescription currentDescription = CURRENT_SCHEMA.getXMLDescription();
 
     @Override
     public void initialize(ExtensionContext extensionContext) {
         final SubsystemRegistration sr =  extensionContext.registerSubsystem(SUBSYSTEM_NAME, CURRENT_MODEL_VERSION);
-        sr.registerXMLElementWriter(CURRENT_PARSER);
+        sr.registerXMLElementWriter(new PersistentResourceXMLDescriptionWriter(this.currentDescription));
         final ManagementResourceRegistration root = sr.registerSubsystemModel(new MicroProfileLRAParticipantSubsystemDefinition());
         root.registerOperationHandler(GenericSubsystemDescribeHandler.DEFINITION, GenericSubsystemDescribeHandler.INSTANCE, false);
     }
 
     @Override
-    public void initializeParsers(ExtensionParsingContext extensionParsingContext) {
-        extensionParsingContext.setSubsystemXmlMapping(SUBSYSTEM_NAME, Namespace.LRA_PARTICIPANT_1_0.getUriString(), CURRENT_PARSER);
+    public void initializeParsers(ExtensionParsingContext context) {
+        for (MicroProfileLRAParticipantSubsystemSchema schema : EnumSet.allOf(MicroProfileLRAParticipantSubsystemSchema.class)) {
+            XMLElementReader<List<ModelNode>> reader = (schema == CURRENT_SCHEMA) ? new PersistentResourceXMLDescriptionReader(this.currentDescription) : schema;
+            context.setSubsystemXmlMapping(SUBSYSTEM_NAME, schema.getNamespace().getUri(), reader);
+        }
     }
 }
