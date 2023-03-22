@@ -24,17 +24,25 @@ package org.wildfly.extension.microprofile.lra.coordinator;
 
 import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUBSYSTEM;
 
+import java.util.EnumSet;
+import java.util.List;
+
 import org.jboss.as.controller.Extension;
 import org.jboss.as.controller.ExtensionContext;
 import org.jboss.as.controller.ModelVersion;
 import org.jboss.as.controller.PathElement;
+import org.jboss.as.controller.PersistentResourceXMLDescription;
+import org.jboss.as.controller.PersistentResourceXMLDescriptionReader;
+import org.jboss.as.controller.PersistentResourceXMLDescriptionWriter;
 import org.jboss.as.controller.SubsystemRegistration;
 import org.jboss.as.controller.descriptions.ResourceDescriptionResolver;
 import org.jboss.as.controller.descriptions.StandardResourceDescriptionResolver;
 import org.jboss.as.controller.operations.common.GenericSubsystemDescribeHandler;
 import org.jboss.as.controller.parsing.ExtensionParsingContext;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
+import org.jboss.dmr.ModelNode;
 import org.jboss.msc.service.ServiceName;
+import org.jboss.staxmapper.XMLElementReader;
 
 
 public class MicroProfileLRACoordinatorExtension implements Extension {
@@ -53,11 +61,7 @@ public class MicroProfileLRACoordinatorExtension implements Extension {
     protected static final ModelVersion VERSION_1_0_0 = ModelVersion.create(1, 0, 0);
 
     private static final ModelVersion CURRENT_MODEL_VERSION = VERSION_1_0_0;
-
-    static String LRA_COORDINATOR_1_0_NAMESPACE_URI = "urn:wildfly:microprofile-lra-coordinator:1.0";
-    private final String CURRENT_NAMESPACE_URI = LRA_COORDINATOR_1_0_NAMESPACE_URI;
-
-    private static final MicroProfileLRACoordinatorParser_1_0 CURRENT_PARSER = new MicroProfileLRACoordinatorParser_1_0();
+    private static final MicroProfileLRACoordinatorSubsystemSchema CURRENT_SCHEMA = MicroProfileLRACoordinatorSubsystemSchema.VERSION_1_0;
 
     static ResourceDescriptionResolver getResourceDescriptionResolver(final String... keyPrefix) {
         StringBuilder prefix = new StringBuilder();
@@ -71,17 +75,21 @@ public class MicroProfileLRACoordinatorExtension implements Extension {
             MicroProfileLRACoordinatorExtension.class.getClassLoader(), true, false);
     }
 
+    private final PersistentResourceXMLDescription currentDescription = CURRENT_SCHEMA.getXMLDescription();
 
     @Override
     public void initialize(ExtensionContext extensionContext) {
         final SubsystemRegistration subsystem = extensionContext.registerSubsystem(SUBSYSTEM_NAME, CURRENT_MODEL_VERSION);
-        subsystem.registerXMLElementWriter(CURRENT_PARSER);
+        subsystem.registerXMLElementWriter(new PersistentResourceXMLDescriptionWriter(this.currentDescription));
         final ManagementResourceRegistration registration = subsystem.registerSubsystemModel(new MicroProfileLRACoordinatorSubsystemDefinition());
         registration.registerOperationHandler(GenericSubsystemDescribeHandler.DEFINITION, GenericSubsystemDescribeHandler.INSTANCE);
     }
 
     @Override
-    public void initializeParsers(ExtensionParsingContext extensionParsingContext) {
-        extensionParsingContext.setSubsystemXmlMapping(SUBSYSTEM_NAME, CURRENT_NAMESPACE_URI, CURRENT_PARSER);
+    public void initializeParsers(ExtensionParsingContext context) {
+        for (MicroProfileLRACoordinatorSubsystemSchema schema : EnumSet.allOf(MicroProfileLRACoordinatorSubsystemSchema.class)) {
+            XMLElementReader<List<ModelNode>> reader = (schema == CURRENT_SCHEMA) ? new PersistentResourceXMLDescriptionReader(this.currentDescription) : schema;
+            context.setSubsystemXmlMapping(SUBSYSTEM_NAME, schema.getNamespace().getUri(), reader);
+        }
     }
 }
