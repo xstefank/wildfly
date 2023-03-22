@@ -26,14 +26,12 @@ import org.jboss.as.controller.AttributeDefinition;
 import org.jboss.as.controller.PathElement;
 import org.jboss.as.controller.PersistentResourceDefinition;
 import org.jboss.as.controller.ReloadRequiredRemoveStepHandler;
-import org.jboss.as.controller.ReloadRequiredWriteAttributeHandler;
 import org.jboss.as.controller.SimpleAttributeDefinition;
 import org.jboss.as.controller.SimpleAttributeDefinitionBuilder;
 import org.jboss.as.controller.capability.RuntimeCapability;
 import org.jboss.as.controller.descriptions.ParentResourceDescriptionResolver;
 import org.jboss.as.controller.descriptions.SubsystemResourceDescriptionResolver;
 import org.jboss.as.controller.registry.AttributeAccess;
-import org.jboss.as.controller.registry.ManagementResourceRegistration;
 import org.jboss.dmr.ModelNode;
 import org.jboss.dmr.ModelType;
 import org.wildfly.extension.undertow.Constants;
@@ -89,13 +87,6 @@ public class MicroProfileLRAParticipantSubsystemDefinition extends PersistentRes
                 .setRemoveHandler(new ReloadRequiredRemoveStepHandler())
                 .setCapabilities(LRA_PARTICIPANT_CAPABILITY)
         );
-    }
-
-    @Override
-    public void registerAttributes(ManagementResourceRegistration resourceRegistration) {
-        resourceRegistration.registerReadWriteAttribute(LRA_COORDINATOR_URL, null, new ReloadRequiredWriteAttributeHandler(LRA_COORDINATOR_URL));
-        resourceRegistration.registerReadWriteAttribute(PROXY_SERVER, null, new ReloadRequiredWriteAttributeHandler(PROXY_SERVER));
-        resourceRegistration.registerReadWriteAttribute(PROXY_HOST, null, new ReloadRequiredWriteAttributeHandler(PROXY_HOST));
     }
 
     @Override
