@@ -23,13 +23,15 @@
 package org.wildfly.extension.microprofile.lra.participant;
 
 import org.jboss.as.controller.AttributeDefinition;
+import org.jboss.as.controller.PathElement;
 import org.jboss.as.controller.PersistentResourceDefinition;
 import org.jboss.as.controller.ReloadRequiredRemoveStepHandler;
 import org.jboss.as.controller.ReloadRequiredWriteAttributeHandler;
 import org.jboss.as.controller.SimpleAttributeDefinition;
 import org.jboss.as.controller.SimpleAttributeDefinitionBuilder;
-import org.jboss.as.controller.SimpleResourceDefinition;
 import org.jboss.as.controller.capability.RuntimeCapability;
+import org.jboss.as.controller.descriptions.ParentResourceDescriptionResolver;
+import org.jboss.as.controller.descriptions.SubsystemResourceDescriptionResolver;
 import org.jboss.as.controller.registry.AttributeAccess;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
 import org.jboss.dmr.ModelNode;
@@ -39,10 +41,13 @@ import org.wildfly.extension.undertow.Constants;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUBSYSTEM;
 import static org.wildfly.extension.microprofile.lra.participant.MicroProfileLRAParticipantExtension.SUBSYSTEM_NAME;
-import static org.wildfly.extension.microprofile.lra.participant.MicroProfileLRAParticipantExtension.SUBSYSTEM_PATH;
 
 public class MicroProfileLRAParticipantSubsystemDefinition extends PersistentResourceDefinition {
+
+    static final PathElement PATH = PathElement.pathElement(SUBSYSTEM, SUBSYSTEM_NAME);
+    static final ParentResourceDescriptionResolver RESOLVER = new SubsystemResourceDescriptionResolver(SUBSYSTEM_NAME, MicroProfileLRAParticipantExtension.class);
 
     private static final String LRA_PARTICIPANT_CAPABILITY_NAME = "org.wildfly.microprofile.lra.participant";
 
@@ -79,10 +84,7 @@ public class MicroProfileLRAParticipantSubsystemDefinition extends PersistentRes
     static final AttributeDefinition[] ATTRIBUTES = {LRA_COORDINATOR_URL, PROXY_SERVER, PROXY_HOST};
 
     MicroProfileLRAParticipantSubsystemDefinition() {
-        super(
-            new SimpleResourceDefinition.Parameters(
-                SUBSYSTEM_PATH,
-                MicroProfileLRAParticipantExtension.getResourceDescriptionResolver(SUBSYSTEM_NAME))
+        super(new Parameters(PATH, RESOLVER)
                 .setAddHandler(MicroProfileLRAParticipantAdd.INSTANCE)
                 .setRemoveHandler(new ReloadRequiredRemoveStepHandler())
                 .setCapabilities(LRA_PARTICIPANT_CAPABILITY)

@@ -51,7 +51,7 @@ enum MicroProfileLRAParticipantSubsystemSchema implements PersistentSubsystemSch
 
     @Override
     public PersistentResourceXMLDescription getXMLDescription() {
-        return builder(MicroProfileLRAParticipantExtension.SUBSYSTEM_PATH, this.namespace)
+        return builder(MicroProfileLRAParticipantSubsystemDefinition.PATH, this.namespace)
                 .addAttributes(MicroProfileLRAParticipantSubsystemDefinition.ATTRIBUTES)
                 .build();
     }
