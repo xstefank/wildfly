@@ -80,7 +80,7 @@ public class MicroProfileLRACoordinatorSubsystemDefinition extends SimpleResourc
 
     MicroProfileLRACoordinatorSubsystemDefinition() {
         super(new Parameters(PATH, RESOLVER)
-                .setAddHandler(MicroProfileLRACoordinatorAdd.INSTANCE)
+                .setAddHandler(new MicroProfileLRACoordinatorAdd())
                 .setRemoveHandler(ReloadRequiredRemoveStepHandler.INSTANCE)
                 .setCapabilities(LRA_COORDINATOR_CAPABILITY, LRA_RECOVERY_SERVICE_CAPABILITY)
         );

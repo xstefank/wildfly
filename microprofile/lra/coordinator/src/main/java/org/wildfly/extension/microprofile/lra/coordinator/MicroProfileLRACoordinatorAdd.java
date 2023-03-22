@@ -45,9 +45,8 @@ import java.util.Arrays;
 import static org.wildfly.extension.microprofile.lra.coordinator.MicroProfileLRACoordinatorSubsystemDefinition.ATTRIBUTES;
 
 class MicroProfileLRACoordinatorAdd extends AbstractBoottimeAddStepHandler {
-    static MicroProfileLRACoordinatorAdd INSTANCE = new MicroProfileLRACoordinatorAdd();
 
-    private MicroProfileLRACoordinatorAdd() {
+    MicroProfileLRACoordinatorAdd() {
         super(Arrays.asList(ATTRIBUTES));
     }
 
