@@ -23,23 +23,29 @@
 package org.wildfly.extension.microprofile.lra.coordinator;
 
 import org.jboss.as.controller.AttributeDefinition;
+import org.jboss.as.controller.PathElement;
 import org.jboss.as.controller.ReloadRequiredRemoveStepHandler;
 import org.jboss.as.controller.ReloadRequiredWriteAttributeHandler;
 import org.jboss.as.controller.SimpleAttributeDefinition;
 import org.jboss.as.controller.SimpleAttributeDefinitionBuilder;
 import org.jboss.as.controller.SimpleResourceDefinition;
 import org.jboss.as.controller.capability.RuntimeCapability;
+import org.jboss.as.controller.descriptions.ParentResourceDescriptionResolver;
+import org.jboss.as.controller.descriptions.SubsystemResourceDescriptionResolver;
 import org.jboss.as.controller.registry.AttributeAccess;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
 import org.jboss.dmr.ModelNode;
 import org.jboss.dmr.ModelType;
 import org.wildfly.extension.undertow.Constants;
 
+import static org.jboss.as.controller.descriptions.ModelDescriptionConstants.SUBSYSTEM;
 import static org.wildfly.extension.microprofile.lra.coordinator.MicroProfileLRACoordinatorExtension.SUBSYSTEM_NAME;
-import static org.wildfly.extension.microprofile.lra.coordinator.MicroProfileLRACoordinatorExtension.SUBSYSTEM_PATH;
 
 
 public class MicroProfileLRACoordinatorSubsystemDefinition extends SimpleResourceDefinition {
+
+    static final PathElement PATH = PathElement.pathElement(SUBSYSTEM, SUBSYSTEM_NAME);
+    static final ParentResourceDescriptionResolver RESOLVER = new SubsystemResourceDescriptionResolver(SUBSYSTEM_NAME, MicroProfileLRACoordinatorExtension.class);
 
     static final String LRA_COORDINATOR_CAPABILITY_NAME = "org.wildfly.microprofile.lra.coordinator";
     static final String LRA_RECOVERY_SERVICE_CAPABILITY_NAME = "org.wildfly.microprofile.lra.recovery";
@@ -73,9 +79,7 @@ public class MicroProfileLRACoordinatorSubsystemDefinition extends SimpleResourc
     static final AttributeDefinition[] ATTRIBUTES = {SERVER, HOST};
 
     MicroProfileLRACoordinatorSubsystemDefinition() {
-        super(
-            new SimpleResourceDefinition.Parameters(
-                SUBSYSTEM_PATH, MicroProfileLRACoordinatorExtension.getResourceDescriptionResolver(SUBSYSTEM_NAME))
+        super(new Parameters(PATH, RESOLVER)
                 .setAddHandler(MicroProfileLRACoordinatorAdd.INSTANCE)
                 .setRemoveHandler(ReloadRequiredRemoveStepHandler.INSTANCE)
                 .setCapabilities(LRA_COORDINATOR_CAPABILITY, LRA_RECOVERY_SERVICE_CAPABILITY)

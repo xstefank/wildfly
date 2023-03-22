@@ -51,7 +51,7 @@ public enum MicroProfileLRACoordinatorSubsystemSchema implements PersistentSubsy
 
     @Override
     public PersistentResourceXMLDescription getXMLDescription() {
-        return builder(MicroProfileLRACoordinatorExtension.SUBSYSTEM_PATH, this.namespace)
+        return builder(MicroProfileLRACoordinatorSubsystemDefinition.PATH, this.namespace)
                 .addAttributes(MicroProfileLRACoordinatorSubsystemDefinition.ATTRIBUTES)
                 .build();
     }
