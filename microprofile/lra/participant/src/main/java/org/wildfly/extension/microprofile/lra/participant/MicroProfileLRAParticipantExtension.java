@@ -27,7 +27,6 @@ import java.util.List;
 
 import org.jboss.as.controller.Extension;
 import org.jboss.as.controller.ExtensionContext;
-import org.jboss.as.controller.ModelVersion;
 import org.jboss.as.controller.PersistentResourceXMLDescription;
 import org.jboss.as.controller.PersistentResourceXMLDescriptionReader;
 import org.jboss.as.controller.PersistentResourceXMLDescriptionWriter;
@@ -46,16 +45,14 @@ public class MicroProfileLRAParticipantExtension implements Extension {
      */
     static final String SUBSYSTEM_NAME = "microprofile-lra-participant";
 
-    static final ModelVersion VERSION_1_0_0 = ModelVersion.create(1, 0, 0);
-
-    private static final ModelVersion CURRENT_MODEL_VERSION = VERSION_1_0_0;
+    private static final MicroProfileLRAParticipantSubsystemModel CURRENT_MODEL = MicroProfileLRAParticipantSubsystemModel.VERSION_1_0_0;
     private static final MicroProfileLRAParticipantSubsystemSchema CURRENT_SCHEMA = MicroProfileLRAParticipantSubsystemSchema.VERSION_1_0;
 
     private final PersistentResourceXMLDescription currentDescription = CURRENT_SCHEMA.getXMLDescription();
 
     @Override
     public void initialize(ExtensionContext extensionContext) {
-        final SubsystemRegistration sr =  extensionContext.registerSubsystem(SUBSYSTEM_NAME, CURRENT_MODEL_VERSION);
+        final SubsystemRegistration sr =  extensionContext.registerSubsystem(SUBSYSTEM_NAME, CURRENT_MODEL.getVersion());
         sr.registerXMLElementWriter(new PersistentResourceXMLDescriptionWriter(this.currentDescription));
         final ManagementResourceRegistration root = sr.registerSubsystemModel(new MicroProfileLRAParticipantSubsystemDefinition());
         root.registerOperationHandler(GenericSubsystemDescribeHandler.DEFINITION, GenericSubsystemDescribeHandler.INSTANCE, false);
