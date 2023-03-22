@@ -35,7 +35,6 @@ import org.jboss.as.controller.operations.common.GenericSubsystemDescribeHandler
 import org.jboss.as.controller.parsing.ExtensionParsingContext;
 import org.jboss.as.controller.registry.ManagementResourceRegistration;
 import org.jboss.dmr.ModelNode;
-import org.jboss.msc.service.ServiceName;
 import org.jboss.staxmapper.XMLElementReader;
 
 
@@ -44,9 +43,7 @@ public class MicroProfileLRACoordinatorExtension implements Extension {
     /**
      * The name of our subsystem within the model.
      */
-    public static final String SUBSYSTEM_NAME = "microprofile-lra-coordinator";
-
-    public static final ServiceName LRA = ServiceName.JBOSS.append(SUBSYSTEM_NAME);
+    static final String SUBSYSTEM_NAME = "microprofile-lra-coordinator";
 
     private static final MicroProfileLRACoordinatorSubsystemModel CURRENT_MODEL = MicroProfileLRACoordinatorSubsystemModel.VERSION_1_0_0;
     private static final MicroProfileLRACoordinatorSubsystemSchema CURRENT_SCHEMA = MicroProfileLRACoordinatorSubsystemSchema.VERSION_1_0;
