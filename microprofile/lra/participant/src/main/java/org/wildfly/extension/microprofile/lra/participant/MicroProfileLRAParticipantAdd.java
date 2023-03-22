@@ -51,9 +51,8 @@ import static org.wildfly.extension.microprofile.lra.participant.MicroProfileLRA
 import static org.wildfly.extension.microprofile.lra.participant.MicroProfileLRAParticipantSubsystemDefinition.ATTRIBUTES;
 
 class MicroProfileLRAParticipantAdd extends AbstractBoottimeAddStepHandler {
-    static MicroProfileLRAParticipantAdd INSTANCE = new MicroProfileLRAParticipantAdd();
 
-    private MicroProfileLRAParticipantAdd() {
+    MicroProfileLRAParticipantAdd() {
         super(Arrays.asList(ATTRIBUTES));
     }
 
