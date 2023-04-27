@@ -38,6 +38,7 @@
     <module name="jakarta.ws.rs.api" />
     <module name="org.jboss.logging"/>
     <!-- lra-coordinator-jar -->
+    <module name="org.eclipse.microprofile.config.api"/>
     <module name="org.jboss.jts"/>
     <module name="jakarta.enterprise.api"/>
     <module name="jakarta.servlet.api"/>
