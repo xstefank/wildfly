@@ -36,6 +36,10 @@
 
     <name>WildFly: MicroProfile Health Extension With SmallRye</name>
 
+    <properties>
+      <test>test</test>
+    </properties>
+
     <dependencyManagement>
         <dependencies>
             <dependency>
