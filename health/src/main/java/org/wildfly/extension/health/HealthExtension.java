@@ -54,6 +54,9 @@ public class HealthExtension implements Extension {
 
     /**
      * The name of our subsystem within the model.
+     *
+     *
+     * 
      */
     public static final String SUBSYSTEM_NAME = "health";
 
