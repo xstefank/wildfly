@@ -1,4 +1,4 @@
-Testing subsystems
+Testing Wildfly-Bot
 ==================
 First build the project using `mvn install`
 
