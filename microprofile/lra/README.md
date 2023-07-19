@@ -2,6 +2,7 @@ Testing subsystems
 ==================
 First build the project using `mvn install`
 
+Change in microprofile/lra/README.md file
 
 Modify standalone.xml
 ---------------------
