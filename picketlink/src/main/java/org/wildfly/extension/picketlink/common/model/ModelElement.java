@@ -27,6 +27,7 @@ import java.util.Map;
 
 /**
  * <p> {@link Enum} class where all model elements name (attributes and elements) are defined. </p>
+ * 
  *
  * @author <a href="mailto:psilva@redhat.com">Pedro Silva</a>
  * @since Mar 8, 2012
