@@ -40,7 +40,7 @@ import java.util.List;
 public class MicroProfileLRACoordinatorExtension implements Extension {
 
     /**
-     * The name of our subsystem within the model.
+     * The name of our subsystem within the model. 
      */
     static final String SUBSYSTEM_NAME = "microprofile-lra-coordinator";
 
