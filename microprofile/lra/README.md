@@ -2,6 +2,7 @@ Testing subsystems
 ==================
 First build the project using `mvn install`
 
+Change in LRA Readme.
 
 Modify standalone.xml
 ---------------------
