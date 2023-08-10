@@ -3,38 +3,38 @@ wildfly:
     - id: appclient
       titleBody: "appclient"
       directories: [ appclient ]
-      notify: [ bstansberry ]
+      notify: [ xstefank ]
 
     - id: batch-jberet
       titleBody: "batch|batch-jberet"
       directories: [ batch-jberet ]
-      notify: [ chengfang ]
+      notify: [ xstefank ]
 
     - id: bean-validation
       titleBody: "bean-validation|bean validation"
       directories: [ bean-validation ]
-      notify: [ jasondlee ]
+      notify: [ xstefank ]
 
     - id: clustering
       titleBody: "clustering"
       directories: 
         - clustering
         - testsuite/integration/clustering
-      notify: [ pferraro ]
+      notify: [ xstefank ]
 
     - id: connector
       titleBody: "connector"
       directories: [ connector ]
-      notify: [ tadamski ]
+      notify: [ xstefank ]
 
     - id: ee
       directories: [ ee ]
-      notify: [ bstansberry ]
+      notify: [ xstefank ]
 
     - id: ejb3
       titleBody: "ejb3|ejb"
       directories: [ ejb3 ]
-      notify: [ chengfang ]
+      notify: [ xstefank ]
 
     - id: elytron
       titleBody: "elytron|oidc"
@@ -42,7 +42,7 @@ wildfly:
         - elytron-oidc-client
         - testsuite/integration/elytron
         - testsuite/integration/elytron-oidc-client
-      notify: [ fjuma ]
+      notify: [ xstefank ]
 
     - id: health
       titleBody: "health"
@@ -55,49 +55,49 @@ wildfly:
     - id: iiop
       titleBody: "iiop"
       directories: [ iiop-openjdk ]
-      notify: [ tadamski ]
+      notify: [ xstefank ]
 
     - id: jaxrs
       titleBody: "jaxrs"
       directories: [ jaxrs ]
-      notify: [ jamezp ]
+      notify: [ xstefank ]
 
     - id: jdr
       titleBody: "jdr"
       directories: [ jdr ]
-      notify: [ bmaxwell ]
+      notify: [ xstefank ]
 
     - id: jpa
       titleBody: "jpa"
       directories: [ jpa ]
-      notify: [ scottmarlow ]
+      notify: [ xstefank ]
 
     - id: jsf
       titleBody: "jsf"
       directories: [ jsf ]
-      notify: [ jasondlee ]
+      notify: [ xstefank ]
 
     - id: mail
       titleBody: "mail"
       directories: [ mail ]
-      notify: [ yersan ]
+      notify: [ xstefank ]
 
     - id: messaging-activemq
       titleBody: "activemq|messaging"
       directories: [ messaging-activemq ]
-      notify: [ ehsavoie ]
+      notify: [ xstefank ]
 
     - id: metrics
       titleBody: "metrics"
       directories: [ metrics ]
-      notify: [ jasondlee ]
+      notify: [ xstefank ]
       
     - id: micrometer
       titleBody: "micrometer"
       directories:
         - observability/micrometer
         - observability/micrometer-api
-      notify: [ jasondlee ]
+      notify: [ xstefank ]
       
     - id: opentelemtry
       titleBody: "telemetry"
@@ -106,73 +106,73 @@ wildfly:
         - observability/opentelemetry-api
         - microprofile/telemetry-smallrye
         - testsuite/integration/microprofile-tck/telemetry
-      notify: [ jasondlee ]
+      notify: [ xstefank ]
 
     - id: mod_cluster
       titleBody: "mod_cluster"
       directories: [ mod_cluster ]
-      notify: [ rhusar ]
+      notify: [ xstefank ]
 
     - id: naming
       titleBody: "naming"
       directories: [ naming ]
-      notify: [ ropalka ]
+      notify: [ xstefank ]
 
     - id: picketlink
       titleBody: "picketlink"
       directories: [ picketlink ]
-      notify: [ fjuma ]
+      notify: [ xstefank ]
 
     - id: pojo
       titleBody: "pojo"
       directories: [ pojo ]
-      notify: [ bstansberry ]
+      notify: [ xstefank ]
 
     - id: rts
       titleBody: "rts"
       directories: [ rts ]
-      notify: [ mmusgrove ]
+      notify: [ xstefank ]
 
     - id: sar
       titleBody: "sar"
       directories: [ sar ]
-      notify: [ kabir ]
+      notify: [ xstefank ]
 
     - id: security
       titleBody: "security"
       directories: [ security ]
-      notify: [ fjuma ]
+      notify: [ xstefank ]
 
     - id: spec-api
       titleBody: "spec-api"
       directories: [ spec-api ]
-      notify: [ bstansberry ]
+      notify: [ xstefank ]
 
     - id: system-jmx
       titleBody: "system-jmx|jmx"
       directories: [ system-jmx ]
-      notify: [ kabir ]
+      notify: [ xstefank ]
 
     - id: microprofile-config
       titleBody: "config"
       directories:
         - microprofile/config-smallrye
         - testsuite/integration/microprofile-tck/config
-      notify: [ kabir ]
+      notify: [ xstefank ]
       
     - id: microprofile-fault-tolerance
       titleBody: "fault-tolerance|fault tolerance"
       directories:
         - microprofile/fault-tolerance-smallrye
         - testsuite/integration/microprofile-tck/fault-tolerance
-      notify: [ rhusar ]
+      notify: [ xstefank ]
       
     - id: microprofile-jwt
       titleBody: "jwt"
       directories:
         - microprofile/jwt-smallrye
         - testsuite/integration/microprofile-tck/jwt
-      notify: [ fjuma ]
+      notify: [ xstefank ]
       
     - id: microprofile-lra
       titleBody: "lra"
@@ -186,7 +186,7 @@ wildfly:
       directories:
         - microprofile/openapi-smallrye
         - testsuite/integration/microprofile-tck/openapi
-      notify: [ pferraro ]
+      notify: [ xstefank ]
       
     - id: microprofile-reactive
       titleBody: "reactive"
@@ -195,48 +195,48 @@ wildfly:
         - microprofile/reactive-streams-operators-smallrye
         - testsuite/integration/microprofile-tck/reactive-messaging
         - testsuite/integration/microprofile-tck/reactive-streams-operators
-      notify: [ kabir ]
+      notify: [ xstefank ]
       
     - id: microprofile-rest-client
       titleBody: "rest-client|REST client"
       directories:
         - testsuite/integration/microprofile-tck/rest-client
-      notify: [ jamezp ]
+      notify: [ xstefank ]
       
     - id: testsuite-domain
       directories:
         - testsuite/domain
-      notify: [ yersan ]
+      notify: [ xstefank ]
       
     - id: testsuite-galleon
       directories:
         - testsuite/galleon
-      notify: [ jfdenise ]
+      notify: [ xstefank ]
       
     - id: testsuite-multinode
       directories:
         - testsuite/integration/multinode
-      notify: [ chengfang ]
+      notify: [ xstefank ]
       
     - id: testsuite-rbac
       directories:
         - testsuite/integration/rbac
-      notify: [ yersan ]
+      notify: [ xstefank ]
       
     - id: testsuite-vdx
       directories:
         - testsuite/integration/vdx
-      notify: [ bstansberry ]
+      notify: [ xstefank ]
       
     - id: testsuite-ws
       directories:
         - testsuite/integration/ws
-      notify: [ jimma ]
+      notify: [ xstefank ]
       
     - id: testsuite-mixed-domain
       directories:
         - testsuite/mixed-domain
-      notify: [ yersan ]
+      notify: [ xstefank ]
 
     - id: transactions
       titleBody: "transactions"
@@ -244,38 +244,37 @@ wildfly:
         - transactions
         - testsuite/integration/rts
         - testsuite/integration/xts
-      notify: [ mmusgrov ]
+      notify: [ xstefank ]
 
     - id: undertow
       titleBody: "undertow"
       directories: [ undertow ]
-      notify: [ fl4via ]
+      notify: [ xstefank ]
 
     - id: web-common
       titleBody: "web-common|web common"
       directories: [ web-common ]
-      notify: [ pferraro, fl4via ]
+      notify: [ xstefank ]
 
     - id: webservices
       titleBody: "webservices"
       directories: [ webservices ]
-      notify: [ jimma ]
+      notify: [ xstefank ]
 
     - id: weld
       titleBody: "weld"
       directories: [ weld ]
-      notify: [ manovotn ]
+      notify: [ xstefank ]
 
     - id: xts
       titleBody: "xts"
       directories: [ xts ]
-      notify: [ mmusgrov ]
+      notify: [ xstefank ]
 
   emails:
     - mstefank@redhat.com
     - pberan@redhat.com
     - rbudinsk@redhat.com 
-    - brian.stansberry@redhat.com
   
   format:
     description:
